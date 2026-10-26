@@ -1,8 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<meta name="claude:viewport-fit-sides" content="cover">
-<title>Halloween Memory Challenge</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="claude:viewport-fit-sides" content="cover"><title>Halloween Memory Challenge</title><link rel="icon" type="image/png" href="https://pyramid.edu.pe/wp-content/uploads/2024/02/Logo_Pyramid_Academy-07.png"><link rel="apple-touch-icon" href="https://pyramid.edu.pe/wp-content/uploads/2024/02/Logo_Pyramid_Academy-07.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 
 <style>
 :root {
@@ -95,8 +91,9 @@ body {
 /* ══ START ══ */
 .start-inner { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 470px; }
 
-.logo-mark { margin-bottom: 18px; animation: logoIn 0.9s var(--ease) both; }
-.logo-mark svg { display: block; filter: drop-shadow(0 0 24px rgba(20,195,197,0.35)); }
+.logo-mark { margin-bottom: 18px; animation: logoIn 0.9s var(--ease) both; display: flex; justify-content: center; align-items: center; }
+.logo-mark svg, .logo-mark img { display: block; filter: drop-shadow(0 0 24px rgba(20,195,197,0.35)); }
+.logo-mark img { width: 140px; height: auto; object-fit: contain; }
 @keyframes logoIn { from { opacity: 0; transform: translateY(-14px) scale(0.94); } }
 
 .eyebrow {
@@ -693,18 +690,7 @@ body {
 <section id="s-start" class="screen" role="main">
   <div class="start-inner">
     <div class="logo-mark">
-      <svg width="204" height="122" viewBox="0 0 208 124" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pyramid Corporation">
-        <g fill="#14C3C5">
-          <path d="M104 6 L160 78 H136.5 L104 36 L71.5 78 H48 Z"/>
-          <path d="M104 50 L122 78 H86 Z" opacity="0.6"/>
-        </g>
-        <g fill="#0B9496" opacity="0.85">
-          <path d="M22 78 L34 78 L58 47 L46 47 Z"/>
-          <path d="M172 78 L184 78 L160 47 L148 47 Z"/>
-        </g>
-        <text x="104" y="104" text-anchor="middle" fill="#14C3C5" font-family="Montserrat, sans-serif" font-size="25" font-weight="800" letter-spacing="3.4">PYRAMID</text>
-        <text x="104" y="119" text-anchor="middle" fill="#0B9496" font-family="Montserrat, sans-serif" font-size="9.5" font-weight="600" letter-spacing="6.2">CORPORATION</text>
-      </svg>
+      <img src="https://pyramid.edu.pe/wp-content/uploads/2024/02/Logo_Pyramid_Academy-pix-scaled.webp" alt="Pyramid Academy" width="140" height="140" draggable="false">
     </div>
 
     <span class="eyebrow"><svg class="ic"><use href="#i-moon"/></svg> Edición Halloween 2026</span>
