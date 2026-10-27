@@ -1250,10 +1250,10 @@ body.playing #snd-global { display: none !important; }
           <div class="ad-reward-teaser">
             <div class="teaser-head">
               <svg class="ic"><use href="#i-award"/></svg>
-              <span>¡BENEFICIO EXCLUSIVO!</span>
+              <span>¡BENEFICIO MÁXIMO!</span>
             </div>
-            <div class="teaser-amount">HASTA 30% OFF</div>
-            <p class="teaser-sub">Supera el reto de memoria y desbloquea tu cupón con descuentos directos.</p>
+            <div class="teaser-amount">HASTA S/ 100 OFF</div>
+            <p class="teaser-sub">en programas especializados al completar el reto de parejas.</p>
           </div>
         </div>
 
@@ -1361,7 +1361,7 @@ const CFG = {
   URL:         'https://pyramid.edu.pe',
   BACK_DELAY:  900,
   MATCH_DELAY: 520,
-  ASPECT:      0.80,   // ancho/alto de cada tarjeta (los logos son anchos)
+  ASPECT:      0.74,   // ancho/alto de cada tarjeta (tarjetas más estilizadas y grandes)
 };
 
 /* ════════ CUPONES ════════
@@ -1469,9 +1469,9 @@ function layout(){
 
   const maxLayoutW = Math.min(innerWidth, 1680);
   const centerColW = isDesktop ? (maxLayoutW * 0.56) : innerWidth;
-  const availW = centerColW - padX * 2 - (isDesktop ? 36 : 0);
-  const maxAvailableH = isDesktop ? Math.min(innerHeight, 740) : innerHeight;
-  const availH = maxAvailableH - hudH - vGap - padY * 2 - 20;
+  const availW = centerColW - padX * 2;
+  const maxAvailableH = isDesktop ? Math.min(innerHeight, 860) : innerHeight;
+  const availH = maxAvailableH - hudH - vGap - padY * 2 - 16;
 
   let best = null;
   if (isDesktop) {
@@ -1487,8 +1487,8 @@ function layout(){
       w = h * CFG.ASPECT;
     }
 
-    // Limite proporcional para que las tarjetas no sean desmedidas y queden estéticas
-    w = Math.min(118, Math.max(72, Math.floor(w)));
+    // Tarjetas generosas — se permite hasta 145 px de ancho
+    w = Math.min(145, Math.max(80, Math.floor(w)));
     h = Math.floor(w / CFG.ASPECT);
     best = { cols, w, h };
   } else {
