@@ -186,27 +186,403 @@ body {
 .btn-ghost { background: rgba(255,255,255,0.045); color: var(--fg); border: 1px solid var(--line-s); }
 .btn-ghost:hover { background: rgba(255,255,255,0.09); }
 
-/* ══ GAME ══ */
+/* ══ GAME 3-COLUMN LAYOUT ══ */
 #s-game {
   position: fixed; inset: 0; z-index: 10;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 14px;
-  padding: max(10px, env(safe-area-inset-top,0px)) max(8px, env(safe-area-inset-left,0px)) max(10px, env(safe-area-inset-bottom,0px));
+  display: flex; align-items: center; justify-content: center;
+  padding: max(10px, env(safe-area-inset-top,0px)) max(14px, env(safe-area-inset-left,0px)) max(10px, env(safe-area-inset-bottom,0px)) max(14px, env(safe-area-inset-right,0px));
   transition: opacity 0.45s var(--ease);
+  overflow: hidden;
 }
 #s-game.hidden { opacity: 0; pointer-events: none; }
 
-#hud {
-  display: flex; align-items: center; justify-content: center;
-  gap: clamp(9px, 2.2vw, 24px);
-  width: 100%; max-width: 860px;
-  padding: 10px clamp(13px, 2.6vw, 24px); border-radius: 50px;
-  background: linear-gradient(180deg, rgba(26,30,56,0.78), rgba(12,14,28,0.84));
-  border: 1px solid var(--line);
-  box-shadow: 0 10px 34px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); flex-shrink: 0;
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 22fr) minmax(0, 56fr) minmax(0, 22fr);
+  gap: clamp(12px, 1.6vw, 24px);
+  width: 100%;
+  max-width: 1680px;
+  height: 100%;
+  max-height: 98vh;
+  align-items: center;
+  justify-content: center;
 }
-.stat { display: flex; align-items: center; gap: 9px; }
+
+#game-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.grid-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* ══ AD PANELS (Izquierdo y Derecho) ══ */
+.ad-panel {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 36px);
+  max-height: 720px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: panelFadeIn 0.8s var(--ease) both;
+}
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Panel Izquierdo: Pyramid Academy branding */
+.ad-left {
+  background: linear-gradient(168deg, rgba(10, 14, 34, 0.94) 0%, rgba(6, 8, 20, 0.97) 55%, rgba(13, 18, 42, 0.95) 100%);
+  border: 1px solid rgba(20, 195, 197, 0.22);
+}
+.ad-left::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(20, 195, 197, 0.12), transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(124, 58, 237, 0.12), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0.05), transparent 60%);
+}
+
+/* Panel Derecho: Promociones y Cursos */
+.ad-right {
+  background: linear-gradient(168deg, rgba(12, 14, 32, 0.94) 0%, rgba(6, 8, 20, 0.97) 55%, rgba(18, 14, 36, 0.95) 100%);
+  border: 1px solid rgba(249, 115, 22, 0.22);
+}
+.ad-right::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 90% 15%, rgba(249, 115, 22, 0.12), transparent 45%),
+    radial-gradient(circle at 10% 85%, rgba(224, 178, 60, 0.10), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.07), transparent 60%);
+}
+
+.ad-card-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: clamp(14px, 1.4vw, 22px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* Corner Accents */
+.ad-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 3;
+}
+.ad-corner.tl { top: 8px; left: 8px; border-top: 2px solid var(--teal-br); border-left: 2px solid var(--teal-br); border-top-left-radius: 6px; }
+.ad-corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid var(--vio); border-right: 2px solid var(--vio); border-bottom-right-radius: 6px; }
+.ad-corner.tr { top: 8px; right: 8px; border-top: 2px solid var(--ora); border-right: 2px solid var(--ora); border-top-right-radius: 6px; }
+.ad-corner.bl { bottom: 8px; left: 8px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); border-bottom-left-radius: 6px; }
+
+/* Ad Pill / Tag */
+.ad-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal-br);
+  background: rgba(20, 195, 197, 0.1);
+  border: 1px solid rgba(20, 195, 197, 0.25);
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+.ad-pill .ad-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal-br);
+  box-shadow: 0 0 8px var(--teal-br);
+}
+.ad-pill-ora {
+  color: var(--ora);
+  background: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.25);
+}
+.ad-pill-ora .ic { font-size: 11px; }
+
+/* Ad Brand */
+.ad-brand-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.ad-logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 14px rgba(20, 195, 197, 0.35));
+}
+.ad-brand-titles {
+  display: flex;
+  flex-direction: column;
+}
+.ad-brand-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(12.5px, 1.1vw, 15px);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+  text-shadow: 0 0 12px rgba(20, 195, 197, 0.25);
+  line-height: 1.2;
+}
+.ad-brand-sub {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-br);
+  margin-top: 1px;
+}
+
+/* Ad Main Claim */
+.ad-main-claim {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+.claim-line {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(16.5px, 1.4vw, 21.5px);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.claim-accent {
+  background: linear-gradient(135deg, #14C3C5 0%, #38BDF8 50%, #A78BFA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.claim-white {
+  color: #FFFFFF;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.ad-description {
+  font-size: clamp(11px, 0.88vw, 12.5px);
+  color: var(--fg-2);
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+
+/* Benefits List */
+.ad-benefits {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+.ad-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ad-benefit-ic {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  border: 1px solid;
+}
+.ad-benefit-ic.ic-t { color: var(--teal-br); background: rgba(20, 195, 197, 0.12); border-color: rgba(20, 195, 197, 0.25); }
+.ad-benefit-ic.ic-v { color: #A78BFA; background: rgba(124, 58, 237, 0.12); border-color: rgba(124, 58, 237, 0.25); }
+.ad-benefit-ic.ic-o { color: var(--ora); background: rgba(249, 115, 22, 0.12); border-color: rgba(249, 115, 22, 0.25); }
+
+.ad-benefit-text {
+  display: flex;
+  flex-direction: column;
+}
+.ad-benefit-text strong {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1.2;
+}
+.ad-benefit-text small {
+  font-size: 9px;
+  color: var(--fg-3);
+  line-height: 1.2;
+}
+
+/* Ad Right: Promo Content */
+.ad-promo-header {
+  margin-bottom: 10px;
+}
+.promo-badge-tag {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ora);
+  margin-bottom: 4px;
+}
+.ad-promo-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(14px, 1.15vw, 17px);
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.ad-promo-desc {
+  font-size: clamp(10.5px, 0.82vw, 12px);
+  color: var(--fg-2);
+  line-height: 1.4;
+}
+
+.ad-tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.ad-tag {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.ad-tag:hover {
+  background: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.35);
+  color: var(--ora);
+}
+
+.ad-reward-teaser {
+  border-radius: 13px;
+  padding: 10px 12px;
+  text-align: center;
+  background: linear-gradient(150deg, rgba(249, 115, 22, 0.1) 0%, rgba(124, 58, 237, 0.08) 100%);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  margin-bottom: 12px;
+}
+.teaser-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+.teaser-head .ic { font-size: 11px; }
+.teaser-amount {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(19px, 1.8vw, 24px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #FFF8E7 0%, var(--ora) 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 2px 0;
+}
+.teaser-sub {
+  font-size: 9.5px;
+  color: var(--fg-2);
+  line-height: 1.35;
+}
+
+/* Call to action buttons in ads */
+.ad-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.22s var(--ease);
+}
+.ad-cta-btn .ic { font-size: 13px; }
+.btn-ad-teal {
+  background: linear-gradient(135deg, var(--teal), var(--teal-dk));
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(11, 148, 150, 0.35);
+  border: 1px solid rgba(20, 195, 197, 0.4);
+}
+.btn-ad-teal:hover {
+  box-shadow: 0 10px 28px rgba(20, 195, 197, 0.5);
+  transform: translateY(-2px);
+  color: #FFFFFF;
+}
+.btn-ad-ora {
+  background: linear-gradient(135deg, var(--ora), var(--ora-dk));
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35);
+  border: 1px solid rgba(249, 115, 22, 0.4);
+}
+.btn-ad-ora:hover {
+  box-shadow: 0 10px 28px rgba(249, 115, 22, 0.5);
+  transform: translateY(-2px);
+  color: #FFFFFF;
+}
+
+/* ══ HUD ══ */
+#hud {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: clamp(7px, 1.4vw, 18px);
+  width: 100%;
+  max-width: calc(var(--cols) * var(--card-w) + (var(--cols) - 1) * var(--gap));
+  padding: 8px clamp(12px, 1.8vw, 20px); border-radius: 50px;
+  background: linear-gradient(180deg, rgba(26,30,56,0.88), rgba(12,14,28,0.92));
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); flex-shrink: 0;
+  transition: max-width 0.25s var(--ease);
+}
+.stat { display: flex; align-items: center; gap: 8px; }
 .stat-ic {
   width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center; font-size: 14px;
@@ -220,16 +596,45 @@ body {
 .hearts { display: flex; gap: 3px; align-items: center; margin-top: 1px; }
 .hearts .hp { font-size: 14px; color: var(--ora); transition: all 0.4s var(--ease); }
 .hearts .hp.out { color: var(--fg-3); opacity: 0.35; transform: scale(0.8); }
-.bar { width: clamp(54px,9vw,92px); height: 4px; border-radius: 3px; background: rgba(255,255,255,0.07); overflow: hidden; margin-top: 4px; }
+.bar { width: clamp(48px,7.5vw,88px); height: 4px; border-radius: 3px; background: rgba(255,255,255,0.07); overflow: hidden; margin-top: 4px; }
 .bar i { display: block; height: 100%; width: 0%; border-radius: 3px;
          background: linear-gradient(90deg, var(--teal), var(--teal-br)); transition: width 0.55s var(--ease); }
 
-/* GRID — llena la pantalla */
+.hud-snd {
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 13px;
+  color: var(--fg-2); cursor: pointer;
+  background: rgba(255,255,255,0.06); border: 1px solid var(--line);
+  transition: all 0.22s var(--ease);
+}
+.hud-snd:hover {
+  color: var(--teal-br); border-color: rgba(20,195,197,0.45);
+  background: rgba(11,148,150,0.18); transform: scale(1.06);
+}
+
+/* GRID — centrado y delimitado en columna central */
 #grid {
   display: grid;
   grid-template-columns: repeat(var(--cols), var(--card-w));
   grid-auto-rows: var(--card-h);
   gap: var(--gap); justify-content: center; align-content: center; flex-shrink: 0;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1023px) {
+  .game-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .ad-panel {
+    display: none !important;
+  }
+  #game-center {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* CARDS */
@@ -567,8 +972,8 @@ body {
             filter: drop-shadow(0 0 22px rgba(249,115,22,0.45)); }
 #s-win.revealed .cup-mini { animation: cupFloat 3.6s ease-in-out infinite; }
 
-/* ══ SOUND ══ */
-#snd {
+/* ══ SOUND GLOBAL (Pantalla de inicio) ══ */
+#snd-global {
   position: fixed; z-index: 90;
   top: max(14px, env(safe-area-inset-top,0px)); right: max(14px, env(safe-area-inset-right,0px));
   width: 36px; height: 36px; border-radius: 11px;
@@ -577,7 +982,8 @@ body {
   background: rgba(18,21,42,0.8); border: 1px solid var(--line);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: all 0.22s;
 }
-#snd:hover { color: var(--teal-br); border-color: rgba(20,195,197,0.4); background: rgba(11,148,150,0.12); }
+#snd-global:hover { color: var(--teal-br); border-color: rgba(20,195,197,0.4); background: rgba(11,148,150,0.12); }
+body.playing #snd-global { display: none !important; }
 
 #confetti { position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: 0; transition: opacity 0.45s; }
 #confetti.on { opacity: 1; }
@@ -684,7 +1090,7 @@ body {
 <div class="grain"></div>
 <canvas id="confetti"></canvas>
 
-<button id="snd" aria-label="Silenciar sonido"><svg class="ic"><use href="#i-vol-on"/></svg></button>
+<button id="snd-global" class="snd-btn" aria-label="Silenciar sonido"><svg class="ic"><use href="#i-vol-on"/></svg></button>
 
 <!-- ══════════ START ══════════ -->
 <section id="s-start" class="screen" role="main">
@@ -717,31 +1123,149 @@ body {
 </section>
 
 <!-- ══════════ GAME ══════════ -->
-<section id="s-game" class="hidden" aria-label="Tablero">
-  <div id="hud" role="status" aria-live="polite">
-    <div class="stat">
-      <span class="stat-ic o"><svg class="ic solid"><use href="#i-heart"/></svg></span>
-      <span class="stat-txt"><span class="stat-lbl">Vidas</span><span class="hearts" id="hearts"></span></span>
+<section id="s-game" class="hidden" aria-label="Tablero y Publicidad">
+  <div class="game-layout">
+    <!-- PANEL IZQUIERDO: Pyramid Academy (22%) -->
+    <aside class="ad-panel ad-left" aria-label="Pyramid Academy - Aprende hoy, construye tu futuro">
+      <div class="ad-corner tl"></div>
+      <div class="ad-corner br"></div>
+      <div class="ad-card-inner">
+        <div class="ad-top">
+          <div class="ad-pill">
+            <span class="ad-dot"></span>
+            <span>CAMPUS VIRTUAL</span>
+          </div>
+
+          <div class="ad-brand-box">
+            <img src="https://pyramid.edu.pe/wp-content/uploads/2024/02/Logo_Pyramid_Academy-pix-scaled.webp" alt="Pyramid Academy" class="ad-logo-img" draggable="false">
+            <div class="ad-brand-titles">
+              <span class="ad-brand-name">PYRAMID ACADEMY</span>
+              <span class="ad-brand-sub">Ingeniería &amp; Arquitectura</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ad-body">
+          <div class="ad-main-claim">
+            <span class="claim-line claim-accent">APRENDE HOY.</span>
+            <span class="claim-line claim-white">CONSTRUYE TU FUTURO.</span>
+          </div>
+          <p class="ad-description">Cursos especializados para impulsar tu carrera con el software líder del sector.</p>
+
+          <ul class="ad-benefits">
+            <li>
+              <span class="ad-benefit-ic ic-t"><svg class="ic"><use href="#i-award"/></svg></span>
+              <div class="ad-benefit-text">
+                <strong>Certificación Oficial</strong>
+                <small>Respaldo curricular de valor</small>
+              </div>
+            </li>
+            <li>
+              <span class="ad-benefit-ic ic-v"><svg class="ic"><use href="#i-layers"/></svg></span>
+              <div class="ad-benefit-text">
+                <strong>Metodología BIM</strong>
+                <small>Flujos de trabajo reales</small>
+              </div>
+            </li>
+            <li>
+              <span class="ad-benefit-ic ic-o"><svg class="ic"><use href="#i-pulse"/></svg></span>
+              <div class="ad-benefit-text">
+                <strong>Docentes Expertos</strong>
+                <small>Profesionales en activo</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="ad-bottom">
+          <a href="https://pyramid.edu.pe" target="_blank" rel="noopener noreferrer" class="ad-cta-btn btn-ad-teal">
+            <span>Conoce Pyramid Academy</span>
+            <svg class="ic"><use href="#i-globe"/></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- COLUMNA CENTRAL: HUD + Tablero (56%) -->
+    <div id="game-center">
+      <div id="hud" role="status" aria-live="polite">
+        <div class="stat">
+          <span class="stat-ic o"><svg class="ic solid"><use href="#i-heart"/></svg></span>
+          <span class="stat-txt"><span class="stat-lbl">Vidas</span><span class="hearts" id="hearts"></span></span>
+        </div>
+        <span class="sep"></span>
+        <div class="stat">
+          <span class="stat-ic t"><svg class="ic"><use href="#i-layers"/></svg></span>
+          <span class="stat-txt"><span class="stat-lbl">Parejas</span><span class="stat-val" id="v-pairs">0 / 6</span></span>
+        </div>
+        <span class="sep"></span>
+        <div class="stat">
+          <span class="stat-ic v"><svg class="ic"><use href="#i-pulse"/></svg></span>
+          <span class="stat-txt"><span class="stat-lbl">Progreso</span>
+            <span class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" id="bar"><i id="bar-i"></i></span>
+          </span>
+        </div>
+        <span class="sep"></span>
+        <div class="stat">
+          <span class="stat-ic t"><svg class="ic"><use href="#i-clock"/></svg></span>
+          <span class="stat-txt"><span class="stat-lbl">Tiempo</span><span class="stat-val" id="v-time">0:00</span></span>
+        </div>
+        <span class="sep"></span>
+        <button id="snd-hud" class="hud-snd snd-btn" aria-label="Silenciar sonido"><svg class="ic"><use href="#i-vol-on"/></svg></button>
+      </div>
+
+      <div class="grid-wrap">
+        <div id="grid" role="grid" aria-label="Tarjetas"></div>
+      </div>
     </div>
-    <span class="sep"></span>
-    <div class="stat">
-      <span class="stat-ic t"><svg class="ic"><use href="#i-layers"/></svg></span>
-      <span class="stat-txt"><span class="stat-lbl">Parejas</span><span class="stat-val" id="v-pairs">0 / 6</span></span>
-    </div>
-    <span class="sep"></span>
-    <div class="stat">
-      <span class="stat-ic v"><svg class="ic"><use href="#i-pulse"/></svg></span>
-      <span class="stat-txt"><span class="stat-lbl">Progreso</span>
-        <span class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" id="bar"><i id="bar-i"></i></span>
-      </span>
-    </div>
-    <span class="sep"></span>
-    <div class="stat">
-      <span class="stat-ic t"><svg class="ic"><use href="#i-clock"/></svg></span>
-      <span class="stat-txt"><span class="stat-lbl">Tiempo</span><span class="stat-val" id="v-time">0:00</span></span>
-    </div>
+
+    <!-- PANEL DERECHO: Mensajes Promocionales (22%) -->
+    <aside class="ad-panel ad-right" aria-label="Promociones y Cursos Especializados">
+      <div class="ad-corner tr"></div>
+      <div class="ad-corner bl"></div>
+      <div class="ad-card-inner">
+        <div class="ad-top">
+          <div class="ad-pill ad-pill-ora">
+            <svg class="ic"><use href="#i-moon"/></svg>
+            <span>HALLOWEEN SPECIAL</span>
+          </div>
+
+          <div class="ad-promo-header">
+            <div class="promo-badge-tag">PROGRAMAS DESTACADOS</div>
+            <h3 class="ad-promo-title">SOFTWARE LÍDER DE LA INDUSTRIA</h3>
+            <p class="ad-promo-desc">Especialízate en las herramientas de mayor demanda técnica del sector.</p>
+          </div>
+        </div>
+
+        <div class="ad-body">
+          <div class="ad-tags-cloud">
+            <span class="ad-tag">Autodesk Revit</span>
+            <span class="ad-tag">Civil 3D</span>
+            <span class="ad-tag">RIB Presto</span>
+            <span class="ad-tag">GEO5 Perú</span>
+            <span class="ad-tag">CIP &amp; CAP</span>
+            <span class="ad-tag">CYPE Estructuras</span>
+          </div>
+
+          <div class="ad-reward-teaser">
+            <div class="teaser-head">
+              <svg class="ic"><use href="#i-award"/></svg>
+              <span>¡BENEFICIO EXCLUSIVO!</span>
+            </div>
+            <div class="teaser-amount">HASTA 30% OFF</div>
+            <p class="teaser-sub">Supera el reto de memoria y desbloquea tu cupón con descuentos directos.</p>
+          </div>
+        </div>
+
+        <div class="ad-bottom">
+          <a href="https://pyramid.edu.pe" target="_blank" rel="noopener noreferrer" class="ad-cta-btn btn-ad-ora">
+            <span>Ver Catálogo de Cursos</span>
+            <svg class="ic"><use href="#i-globe"/></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
   </div>
-  <div id="grid" role="grid" aria-label="Tarjetas"></div>
 </section>
 
 <div id="peek" aria-hidden="true">
@@ -930,48 +1454,68 @@ const bgC = $('bg-canvas'), ghC = $('ghost-canvas'), cfC = $('confetti');
 const bgX = bgC.getContext('2d'), ghX = ghC.getContext('2d');
 const icon = (id, cls='ic') => '<svg class="'+cls+'"><use href="#'+id+'"/></svg>';
 
-/* ════════ LAYOUT: el tablero llena la pantalla ════════ */
+/* ════════ LAYOUT: el tablero llena la columna central ════════ */
 function layout(){
   const total  = CFG.PAIRS * 2;
+  const isDesktop = innerWidth >= 1024;
   const narrow = innerWidth < 560;
 
-  const padX = narrow ? 10 : 16;
-  const padY = 12;
-  const gap  = narrow ? 7 : Math.max(8, Math.min(14, Math.round(innerWidth * 0.011)));
-  const hudH = hud.offsetHeight || 58;
+  const padX = isDesktop ? 16 : (narrow ? 8 : 12);
+  const padY = 8;
+  const gap  = narrow ? 7 : (isDesktop ? 10 : Math.max(8, Math.min(12, Math.round(innerWidth * 0.01))));
+  const hudEl = $('hud');
+  const hudH = hudEl ? (hudEl.offsetHeight || 52) : 52;
   const vGap = 14;
 
-  const availW = innerWidth  - padX * 2;
-  const availH = innerHeight - hudH - vGap - padY * 2 - 4;
-
-  /* Prueba cada reparto en columnas que divida exactamente el mazo
-     (así nunca queda una fila incompleta) y conserva el que produce
-     las tarjetas más grandes: es el que mejor llena la pantalla. */
-  const lo = narrow ? 2 : 3, hi = narrow ? 4 : 7;
-  const cand = [];
-  for (let c = lo; c <= hi; c++) if (total % c === 0) cand.push(c);
-  if (!cand.length) cand.push(narrow ? 3 : 6);
+  const maxLayoutW = Math.min(innerWidth, 1680);
+  const centerColW = isDesktop ? (maxLayoutW * 0.56) : innerWidth;
+  const availW = centerColW - padX * 2 - (isDesktop ? 36 : 0);
+  const maxAvailableH = isDesktop ? Math.min(innerHeight, 740) : innerHeight;
+  const availH = maxAvailableH - hudH - vGap - padY * 2 - 20;
 
   let best = null;
-  for (const cols of cand) {
-    const rows = total / cols;
-    let w = (availW - gap * (cols - 1)) / cols;
-    let h = (availH - gap * (rows - 1)) / rows;
-    if (w <= 0 || h <= 0) continue;
-    // respetar proporción: la dimensión sobrante se recorta
-    if (w / h > CFG.ASPECT) w = h * CFG.ASPECT; else h = w / CFG.ASPECT;
-    if (!best || w * h > best.w * best.h) best = { cols, w, h };
-  }
-  if (!best) best = { cols: narrow ? 3 : 6, w: 56, h: 76 };
+  if (isDesktop) {
+    const cols = 6;
+    const rows = Math.ceil(total / cols);
+    let maxW = (availW - gap * (cols - 1)) / cols;
+    let maxH = (availH - gap * (rows - 1)) / rows;
 
-  const w = Math.max(38, Math.floor(best.w));
-  const h = Math.max(52, Math.floor(best.h));
+    let w = maxW;
+    let h = w / CFG.ASPECT;
+    if (h > maxH) {
+      h = maxH;
+      w = h * CFG.ASPECT;
+    }
+
+    // Limite proporcional para que las tarjetas no sean desmedidas y queden estéticas
+    w = Math.min(118, Math.max(72, Math.floor(w)));
+    h = Math.floor(w / CFG.ASPECT);
+    best = { cols, w, h };
+  } else {
+    const lo = narrow ? 2 : 3, hi = narrow ? 4 : 4;
+    const cand = [];
+    for (let c = lo; c <= hi; c++) if (total % c === 0) cand.push(c);
+    if (!cand.length) cand.push(narrow ? 3 : 4);
+
+    for (const cols of cand) {
+      const rows = total / cols;
+      let w = (availW - gap * (cols - 1)) / cols;
+      let h = (availH - gap * (rows - 1)) / rows;
+      if (w <= 0 || h <= 0) continue;
+      if (w / h > CFG.ASPECT) w = h * CFG.ASPECT; else h = w / CFG.ASPECT;
+      if (!best || w * h > best.w * best.h) best = { cols, w, h };
+    }
+    if (!best) best = { cols: narrow ? 3 : 4, w: 56, h: 70 };
+  }
+
+  const w = Math.max(36, Math.floor(best.w));
+  const h = Math.max(48, Math.floor(best.h));
 
   root.style.setProperty('--cols',   best.cols);
   root.style.setProperty('--card-w', w + 'px');
   root.style.setProperty('--card-h', h + 'px');
   root.style.setProperty('--gap',    gap + 'px');
-  root.style.setProperty('--r-card', Math.min(22, Math.max(8, Math.round(w * 0.11))) + 'px');
+  root.style.setProperty('--r-card', Math.min(16, Math.max(8, Math.round(w * 0.11))) + 'px');
 }
 
 /* ════════ AUDIO ════════ */
@@ -1278,6 +1822,7 @@ function play(){
   clearTimeout(tPeek); clearTimeout(tStage); clearInterval(tTimer); clearInterval(tRoll);
   lives = CFG.LIVES; found = 0; moves = 0; secs = 0;
   picked = []; busy = true; playing = true;
+  document.body.classList.add('playing');
 
   sWin.classList.remove('go','revealed','prized');
 
@@ -1348,6 +1893,7 @@ function rollPrize(){
 
 function win(){
   playing = false;
+  document.body.classList.remove('playing');
   clearInterval(tTimer); clearTimeout(tStage); clearInterval(tRoll);
   sdWin();
 
@@ -1377,7 +1923,9 @@ function win(){
 }
 
 function lose(){
-  playing = false; clearInterval(tTimer);
+  playing = false;
+  document.body.classList.remove('playing');
+  clearInterval(tTimer);
   sdLose();
   $('l-pairs').textContent = found + ' / ' + CFG.PAIRS;
   $('l-time').textContent  = fmt(secs);
@@ -1409,11 +1957,22 @@ $('b-copy').addEventListener('click', () => {
 });
 
 /* ════════ CONTROLS ════════ */
-$('snd').addEventListener('click', () => {
-  ac(); sound = !sound;
-  $('snd').innerHTML = icon(sound ? 'i-vol-on' : 'i-vol-off');
-  $('snd').setAttribute('aria-label', sound ? 'Silenciar sonido' : 'Activar sonido');
-});
+function updateSoundUI() {
+  const ic = icon(sound ? 'i-vol-on' : 'i-vol-off');
+  const lbl = sound ? 'Silenciar sonido' : 'Activar sonido';
+  document.querySelectorAll('.snd-btn').forEach(btn => {
+    btn.innerHTML = ic;
+    btn.setAttribute('aria-label', lbl);
+  });
+}
+
+function toggleSound() {
+  ac();
+  sound = !sound;
+  updateSoundUI();
+}
+
+document.querySelectorAll('.snd-btn').forEach(b => b.addEventListener('click', toggleSound));
 $('b-start').addEventListener('click', () => { ac(); play(); });
 $('b-again-w').addEventListener('click', play);
 $('b-again-l').addEventListener('click', play);
