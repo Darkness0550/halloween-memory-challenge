@@ -570,6 +570,24 @@ body {
   color: #FFFFFF;
 }
 
+.coupon-help {
+  padding: 13px; margin: 12px 0; border: 1px solid rgba(20,195,197,.22);
+  border-radius: 13px; background: rgba(11,148,150,.07);
+  color: var(--fg-2); font-size: 11px; line-height: 1.5;
+}
+.coupon-help h4 { color: var(--teal-br); font-size: 10px; letter-spacing: .08em; margin-bottom: 8px; }
+.coupon-help ol { padding-left: 18px; }
+.coupon-help li + li, .coupon-help p + p { margin-top: 7px; }
+.coupon-help strong { color: var(--fg); }
+.coupon-help a { color: var(--teal-br); text-underline-offset: 3px; }
+.coupon-terms { border-color: rgba(249,115,22,.25); background: rgba(249,115,22,.05); }
+.coupon-terms h4 { color: var(--ora); }
+.promo-card-inner { gap: 8px; }
+.promo-card-inner > * { flex-shrink: 0; }
+.promo-tag { text-decoration: none; }
+.promo-tag:focus-visible { outline: 2px solid var(--teal-br); outline-offset: 3px; }
+#s-win .coupon-help { text-align: left; width: 100%; max-width: 480px; }
+
 /* ══ HUD ══ */
 #hud {
   display: flex; align-items: center; justify-content: space-between;
@@ -875,7 +893,8 @@ body {
 .row .btn { flex: 1 1 auto; min-width: 150px; }
 
 /* ══════════ WIN SEQUENCE ══════════ */
-#s-win { position: fixed; }
+#s-win { position: fixed; justify-content: flex-start; }
+#win-reward { flex-shrink: 0; margin-block: auto; }
 
 /* FASE 1 — escenario de celebración */
 #win-stage {
@@ -1146,6 +1165,14 @@ body.playing #snd-global { display: none !important; }
           </div>
         </div>
 
+        <section class="coupon-help" aria-label="Cómo usar tu cupón">
+  <h4>USA TU CUPÓN EN LA WEB</h4>
+  <ol>
+    <li>Elige tu curso o programa en <a href="https://pyramid.edu.pe/courses-archive/" target="_blank" rel="noopener noreferrer">nuestro catálogo</a> y agrégalo al carrito.</li>
+    <li>En <strong>Tu Carrito</strong>, pega el código en <strong>«Código de cupón»</strong> y pulsa <strong>«Aplicar el cupón»</strong>.</li>
+    <li>Verifica el descuento en <strong>Totales del carrito</strong> antes de continuar con el pago.</li>
+  </ol>
+</section>
         <div class="promo-body">
           <div class="promo-main-claim">
             <span class="claim-line claim-accent">APRENDE HOY.</span>
@@ -1240,12 +1267,12 @@ body.playing #snd-global { display: none !important; }
 
         <div class="promo-body">
           <div class="promo-tags-cloud">
-            <span class="promo-tag">Autodesk Revit</span>
-            <span class="promo-tag">Civil 3D</span>
-            <span class="promo-tag">RIB Presto</span>
-            <span class="promo-tag">GEO5 Perú</span>
-            <span class="promo-tag">CIP &amp; CAP</span>
-            <span class="promo-tag">CYPE Estructuras</span>
+            <a class="promo-tag" href="https://pyramid.edu.pe/convenios/" target="_blank" rel="noopener noreferrer">Autodesk Revit</a>
+            <a class="promo-tag" href="https://pyramid.edu.pe/convenios/" target="_blank" rel="noopener noreferrer">Civil 3D</a>
+            <a class="promo-tag" href="https://pyramid.edu.pe/convenios/" target="_blank" rel="noopener noreferrer">RIB Presto</a>
+            <a class="promo-tag" href="https://pyramid.edu.pe/convenios/" target="_blank" rel="noopener noreferrer">GEO5 Perú</a>
+            <a class="promo-tag" href="https://pyramid.edu.pe/convenios/" target="_blank" rel="noopener noreferrer">CIP &amp; CAP</a>
+            <a class="promo-tag" href="https://pyramid.edu.pe/convenios/" target="_blank" rel="noopener noreferrer">CYPE Estructuras</a>
           </div>
 
           <div class="promo-reward-teaser">
@@ -1258,8 +1285,14 @@ body.playing #snd-global { display: none !important; }
           </div>
         </div>
 
+        <section class="coupon-help coupon-terms" aria-label="Condiciones del beneficio">
+  <h4>TEN EN CUENTA</h4>
+  <p>El cupón no es acumulable con otros cupones, descuentos ni promociones.</p>
+  <p>Los beneficios de S/ 50 y S/ 100 aplican a programas. Los beneficios de 10% y 30% aplican a cursos.</p>
+  <p>Usa el código que ganaste y verifica que el descuento se aplique antes de pagar.</p>
+</section>
         <div class="promo-bottom">
-          <a href="https://pyramid.edu.pe" target="_blank" rel="noopener noreferrer" class="promo-cta-btn btn-promo-ora">
+          <a href="https://pyramid.edu.pe/courses-archive/" target="_blank" rel="noopener noreferrer" class="promo-cta-btn btn-promo-ora">
             <span>Ver Catálogo de Cursos</span>
             <svg class="ic"><use href="#i-globe"/></svg>
           </a>
@@ -1310,7 +1343,7 @@ body.playing #snd-global { display: none !important; }
 
     <div class="coupon">
       <div class="c-header">
-        <div class="c-brand"><svg class="ic"><use href="#i-ghost"/></svg><span>Pyramid Academy · Halloween 2024</span></div>
+        <div class="c-brand"><svg class="ic"><use href="#i-ghost"/></svg><span>Pyramid Academy · Halloween 2026</span></div>
         <div class="c-badge"><svg class="ic"><use href="#i-award"/></svg> Cupón de descuento</div>
         <div class="c-pct" id="c-pct">&mdash;</div>
         <p class="c-cap" id="c-cap">de descuento</p>
@@ -1323,10 +1356,18 @@ body.playing #snd-global { display: none !important; }
           <button class="c-copy" id="b-copy"><svg class="ic" id="copy-ic"><use href="#i-copy"/></svg><span id="copy-tx">Copiar</span></button>
         </div>
         <p class="c-note"><svg class="ic"><use href="#i-info"/></svg>
-          <span>Presenta este código al matricularte. Válido según condiciones vigentes.</span></p>
+          <span>Úsalo en «Código de cupón» dentro de Tu Carrito y pulsa «Aplicar el cupón». No acumulable con otros cupones, descuentos ni promociones.</span></p>
       </div>
     </div>
 
+    <section class="coupon-help" aria-label="Cómo usar tu cupón">
+  <h4>USA TU CUPÓN EN LA WEB</h4>
+  <ol>
+    <li>Elige tu curso o programa en <a href="https://pyramid.edu.pe/courses-archive/" target="_blank" rel="noopener noreferrer">nuestro catálogo</a> y agrégalo al carrito.</li>
+    <li>En <strong>Tu Carrito</strong>, pega el código en <strong>«Código de cupón»</strong> y pulsa <strong>«Aplicar el cupón»</strong>.</li>
+    <li>Verifica el descuento en <strong>Totales del carrito</strong> antes de continuar con el pago.</li>
+  </ol>
+</section>
     <div class="row">
       <button class="btn btn-md btn-teal" id="b-visit"><svg class="ic"><use href="#i-globe"/></svg> Ver cursos</button>
       <button class="btn btn-md btn-ghost" id="b-again-w"><svg class="ic"><use href="#i-redo"/></svg> Jugar de nuevo</button>
@@ -1359,7 +1400,7 @@ const CFG = {
   LIVES:       5,
   PREVIEW:     1500,   // ms que las tarjetas quedan a la vista al iniciar
   STAGE:       3000,   // ms de la animación de victoria antes del cupón
-  URL:         'https://pyramid.edu.pe',
+  URL:         'https://pyramid.edu.pe/courses-archive/',
   BACK_DELAY:  900,
   MATCH_DELAY: 520,
   ASPECT:      0.74,   // ancho/alto de cada tarjeta (tarjetas más estilizadas y grandes)
@@ -1372,13 +1413,13 @@ const CFG = {
    los beneficios altos (o pon todos en 1 para equiprobabilidad).
 */
 const COUPONS = [
-  { code:'AUTODESK3DARK-P10', amount:'S/ 10',  scope:'en programas', w: 26 },
-  { code:'CIPESPANTO-P20',    amount:'S/ 20',  scope:'en programas', w: 22 },
-  { code:'CAPEMBRUJO-P30',    amount:'S/ 30',  scope:'en programas', w: 18 },
-  { code:'CONSTRUSUSTO-P50',  amount:'S/ 50',  scope:'en programas', w: 12 },
-  { code:'GEO5MISTERIO-P100', amount:'S/ 100', scope:'en programas', w:  4 },
-  { code:'PRESTOTERROR-C10',  amount:'10%',    scope:'en cursos',    w: 12 },
-  { code:'AUTODESK3DARK-C30', amount:'30%',    scope:'en cursos',    w:  6 },
+  { code:'ATDK-P10', amount:'S/ 10',  scope:'en tu compra web', w: 26 },
+  { code:'CIPBU-P20',    amount:'S/ 20',  scope:'en tu compra web', w: 22 },
+  { code:'CAPBOO-P30',    amount:'S/ 30',  scope:'en tu compra web', w: 18 },
+  { code:'CONSOFT-P50',  amount:'S/ 50',  scope:'en programas', w: 12 },
+  { code:'GEO5TR-P100', amount:'S/ 100', scope:'en programas', w:  4 },
+  { code:'PRESTERROR-C10',  amount:'10%',    scope:'en cursos',    w: 12 },
+  { code:'AUTODARK-C30', amount:'30%',    scope:'en cursos',    w:  6 },
 ];
 
 /* ════════ ALIADOS ════════
