@@ -209,6 +209,7 @@ body {
 }
 
 #game-center {
+  grid-column: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -229,7 +230,7 @@ body {
 }
 
 /* ══ AD PANELS (Izquierdo y Derecho) ══ */
-.ad-panel {
+.promo-panel {
   display: flex;
   flex-direction: column;
   height: calc(100vh - 36px);
@@ -248,11 +249,11 @@ body {
 }
 
 /* Panel Izquierdo: Pyramid Academy branding */
-.ad-left {
+.promo-left {
   background: linear-gradient(168deg, rgba(10, 14, 34, 0.94) 0%, rgba(6, 8, 20, 0.97) 55%, rgba(13, 18, 42, 0.95) 100%);
   border: 1px solid rgba(20, 195, 197, 0.22);
 }
-.ad-left::before {
+.promo-left::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background:
     radial-gradient(circle at 10% 15%, rgba(20, 195, 197, 0.12), transparent 45%),
@@ -261,11 +262,11 @@ body {
 }
 
 /* Panel Derecho: Promociones y Cursos */
-.ad-right {
+.promo-right {
   background: linear-gradient(168deg, rgba(12, 14, 32, 0.94) 0%, rgba(6, 8, 20, 0.97) 55%, rgba(18, 14, 36, 0.95) 100%);
   border: 1px solid rgba(249, 115, 22, 0.22);
 }
-.ad-right::before {
+.promo-right::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background:
     radial-gradient(circle at 90% 15%, rgba(249, 115, 22, 0.12), transparent 45%),
@@ -273,7 +274,7 @@ body {
     radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.07), transparent 60%);
 }
 
-.ad-card-inner {
+.promo-card-inner {
   position: relative;
   z-index: 2;
   display: flex;
@@ -286,20 +287,20 @@ body {
 }
 
 /* Corner Accents */
-.ad-corner {
+.promo-corner {
   position: absolute;
   width: 14px;
   height: 14px;
   pointer-events: none;
   z-index: 3;
 }
-.ad-corner.tl { top: 8px; left: 8px; border-top: 2px solid var(--teal-br); border-left: 2px solid var(--teal-br); border-top-left-radius: 6px; }
-.ad-corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid var(--vio); border-right: 2px solid var(--vio); border-bottom-right-radius: 6px; }
-.ad-corner.tr { top: 8px; right: 8px; border-top: 2px solid var(--ora); border-right: 2px solid var(--ora); border-top-right-radius: 6px; }
-.ad-corner.bl { bottom: 8px; left: 8px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); border-bottom-left-radius: 6px; }
+.promo-corner.tl { top: 8px; left: 8px; border-top: 2px solid var(--teal-br); border-left: 2px solid var(--teal-br); border-top-left-radius: 6px; }
+.promo-corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid var(--vio); border-right: 2px solid var(--vio); border-bottom-right-radius: 6px; }
+.promo-corner.tr { top: 8px; right: 8px; border-top: 2px solid var(--ora); border-right: 2px solid var(--ora); border-top-right-radius: 6px; }
+.promo-corner.bl { bottom: 8px; left: 8px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); border-bottom-left-radius: 6px; }
 
 /* Ad Pill / Tag */
-.ad-pill {
+.promo-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -316,35 +317,35 @@ body {
   width: fit-content;
   margin-bottom: 12px;
 }
-.ad-pill .ad-dot {
+.promo-pill .promo-dot {
   width: 6px; height: 6px; border-radius: 50%; background: var(--teal-br);
   box-shadow: 0 0 8px var(--teal-br);
 }
-.ad-pill-ora {
+.promo-pill-ora {
   color: var(--ora);
   background: rgba(249, 115, 22, 0.1);
   border-color: rgba(249, 115, 22, 0.25);
 }
-.ad-pill-ora .ic { font-size: 11px; }
+.promo-pill-ora .ic { font-size: 11px; }
 
 /* Ad Brand */
-.ad-brand-box {
+.promo-brand-box {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 14px;
 }
-.ad-logo-img {
+.promo-logo-img {
   width: 44px;
   height: 44px;
   object-fit: contain;
   filter: drop-shadow(0 0 14px rgba(20, 195, 197, 0.35));
 }
-.ad-brand-titles {
+.promo-brand-titles {
   display: flex;
   flex-direction: column;
 }
-.ad-brand-name {
+.promo-brand-name {
   font-family: 'Montserrat', sans-serif;
   font-size: clamp(12.5px, 1.1vw, 15px);
   font-weight: 900;
@@ -353,7 +354,7 @@ body {
   text-shadow: 0 0 12px rgba(20, 195, 197, 0.25);
   line-height: 1.2;
 }
-.ad-brand-sub {
+.promo-brand-sub {
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -363,7 +364,7 @@ body {
 }
 
 /* Ad Main Claim */
-.ad-main-claim {
+.promo-main-claim {
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
@@ -386,7 +387,7 @@ body {
   text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
-.ad-description {
+.promo-description {
   font-size: clamp(11px, 0.88vw, 12.5px);
   color: var(--fg-2);
   line-height: 1.45;
@@ -394,7 +395,7 @@ body {
 }
 
 /* Benefits List */
-.ad-benefits {
+.promo-benefits {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -405,12 +406,12 @@ body {
   padding: 10px 12px;
   margin-bottom: 14px;
 }
-.ad-benefits li {
+.promo-benefits li {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.ad-benefit-ic {
+.promo-benefit-ic {
   width: 26px;
   height: 26px;
   border-radius: 7px;
@@ -421,28 +422,28 @@ body {
   flex-shrink: 0;
   border: 1px solid;
 }
-.ad-benefit-ic.ic-t { color: var(--teal-br); background: rgba(20, 195, 197, 0.12); border-color: rgba(20, 195, 197, 0.25); }
-.ad-benefit-ic.ic-v { color: #A78BFA; background: rgba(124, 58, 237, 0.12); border-color: rgba(124, 58, 237, 0.25); }
-.ad-benefit-ic.ic-o { color: var(--ora); background: rgba(249, 115, 22, 0.12); border-color: rgba(249, 115, 22, 0.25); }
+.promo-benefit-ic.ic-t { color: var(--teal-br); background: rgba(20, 195, 197, 0.12); border-color: rgba(20, 195, 197, 0.25); }
+.promo-benefit-ic.ic-v { color: #A78BFA; background: rgba(124, 58, 237, 0.12); border-color: rgba(124, 58, 237, 0.25); }
+.promo-benefit-ic.ic-o { color: var(--ora); background: rgba(249, 115, 22, 0.12); border-color: rgba(249, 115, 22, 0.25); }
 
-.ad-benefit-text {
+.promo-benefit-text {
   display: flex;
   flex-direction: column;
 }
-.ad-benefit-text strong {
+.promo-benefit-text strong {
   font-size: 11px;
   font-weight: 700;
   color: var(--fg);
   line-height: 1.2;
 }
-.ad-benefit-text small {
+.promo-benefit-text small {
   font-size: 9px;
   color: var(--fg-3);
   line-height: 1.2;
 }
 
 /* Ad Right: Promo Content */
-.ad-promo-header {
+.promo-promo-header {
   margin-bottom: 10px;
 }
 .promo-badge-tag {
@@ -454,7 +455,7 @@ body {
   color: var(--ora);
   margin-bottom: 4px;
 }
-.ad-promo-title {
+.promo-promo-title {
   font-family: 'Montserrat', sans-serif;
   font-size: clamp(14px, 1.15vw, 17px);
   font-weight: 900;
@@ -463,19 +464,19 @@ body {
   letter-spacing: -0.01em;
   margin-bottom: 6px;
 }
-.ad-promo-desc {
+.promo-promo-desc {
   font-size: clamp(10.5px, 0.82vw, 12px);
   color: var(--fg-2);
   line-height: 1.4;
 }
 
-.ad-tags-cloud {
+.promo-tags-cloud {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   margin-bottom: 12px;
 }
-.ad-tag {
+.promo-tag {
   font-size: 10px;
   font-weight: 600;
   color: var(--fg);
@@ -485,13 +486,13 @@ body {
   border-radius: 6px;
   transition: all 0.2s;
 }
-.ad-tag:hover {
+.promo-tag:hover {
   background: rgba(249, 115, 22, 0.1);
   border-color: rgba(249, 115, 22, 0.35);
   color: var(--ora);
 }
 
-.ad-reward-teaser {
+.promo-reward-teaser {
   border-radius: 13px;
   padding: 10px 12px;
   text-align: center;
@@ -530,7 +531,7 @@ body {
 }
 
 /* Call to action buttons in ads */
-.ad-cta-btn {
+.promo-cta-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -545,25 +546,25 @@ body {
   text-decoration: none;
   transition: all 0.22s var(--ease);
 }
-.ad-cta-btn .ic { font-size: 13px; }
-.btn-ad-teal {
+.promo-cta-btn .ic { font-size: 13px; }
+.btn-promo-teal {
   background: linear-gradient(135deg, var(--teal), var(--teal-dk));
   color: #FFFFFF;
   box-shadow: 0 6px 20px rgba(11, 148, 150, 0.35);
   border: 1px solid rgba(20, 195, 197, 0.4);
 }
-.btn-ad-teal:hover {
+.btn-promo-teal:hover {
   box-shadow: 0 10px 28px rgba(20, 195, 197, 0.5);
   transform: translateY(-2px);
   color: #FFFFFF;
 }
-.btn-ad-ora {
+.btn-promo-ora {
   background: linear-gradient(135deg, var(--ora), var(--ora-dk));
   color: #FFFFFF;
   box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35);
   border: 1px solid rgba(249, 115, 22, 0.4);
 }
-.btn-ad-ora:hover {
+.btn-promo-ora:hover {
   box-shadow: 0 10px 28px rgba(249, 115, 22, 0.5);
   transform: translateY(-2px);
   color: #FFFFFF;
@@ -628,7 +629,7 @@ body {
     align-items: center;
     justify-content: center;
   }
-  .ad-panel {
+  .promo-panel {
     display: none !important;
   }
   #game-center {
@@ -1126,50 +1127,50 @@ body.playing #snd-global { display: none !important; }
 <section id="s-game" class="hidden" aria-label="Tablero y Publicidad">
   <div class="game-layout">
     <!-- PANEL IZQUIERDO: Pyramid Academy (22%) -->
-    <aside class="ad-panel ad-left" aria-label="Pyramid Academy - Aprende hoy, construye tu futuro">
-      <div class="ad-corner tl"></div>
-      <div class="ad-corner br"></div>
-      <div class="ad-card-inner">
-        <div class="ad-top">
-          <div class="ad-pill">
-            <span class="ad-dot"></span>
+    <aside class="promo-panel promo-left" aria-label="Pyramid Academy - Aprende hoy, construye tu futuro">
+      <div class="promo-corner tl"></div>
+      <div class="promo-corner br"></div>
+      <div class="promo-card-inner">
+        <div class="promo-top">
+          <div class="promo-pill">
+            <span class="promo-dot"></span>
             <span>CAMPUS VIRTUAL</span>
           </div>
 
-          <div class="ad-brand-box">
-            <img src="https://pyramid.edu.pe/wp-content/uploads/2024/02/Logo_Pyramid_Academy-pix-scaled.webp" alt="Pyramid Academy" class="ad-logo-img" draggable="false">
-            <div class="ad-brand-titles">
-              <span class="ad-brand-name">PYRAMID ACADEMY</span>
-              <span class="ad-brand-sub">Ingeniería &amp; Arquitectura</span>
+          <div class="promo-brand-box">
+            <img src="https://pyramid.edu.pe/wp-content/uploads/2024/02/Logo_Pyramid_Academy-pix-scaled.webp" alt="Pyramid Academy" class="promo-logo-img" draggable="false">
+            <div class="promo-brand-titles">
+              <span class="promo-brand-name">PYRAMID ACADEMY</span>
+              <span class="promo-brand-sub">Ingeniería &amp; Arquitectura</span>
             </div>
           </div>
         </div>
 
-        <div class="ad-body">
-          <div class="ad-main-claim">
+        <div class="promo-body">
+          <div class="promo-main-claim">
             <span class="claim-line claim-accent">APRENDE HOY.</span>
             <span class="claim-line claim-white">CONSTRUYE TU FUTURO.</span>
           </div>
-          <p class="ad-description">Cursos especializados para impulsar tu carrera con el software líder del sector.</p>
+          <p class="promo-description">Cursos especializados para impulsar tu carrera con el software líder del sector.</p>
 
-          <ul class="ad-benefits">
+          <ul class="promo-benefits">
             <li>
-              <span class="ad-benefit-ic ic-t"><svg class="ic"><use href="#i-award"/></svg></span>
-              <div class="ad-benefit-text">
+              <span class="promo-benefit-ic ic-t"><svg class="ic"><use href="#i-award"/></svg></span>
+              <div class="promo-benefit-text">
                 <strong>Certificación Oficial</strong>
                 <small>Respaldo curricular de valor</small>
               </div>
             </li>
             <li>
-              <span class="ad-benefit-ic ic-v"><svg class="ic"><use href="#i-layers"/></svg></span>
-              <div class="ad-benefit-text">
+              <span class="promo-benefit-ic ic-v"><svg class="ic"><use href="#i-layers"/></svg></span>
+              <div class="promo-benefit-text">
                 <strong>Metodología BIM</strong>
                 <small>Flujos de trabajo reales</small>
               </div>
             </li>
             <li>
-              <span class="ad-benefit-ic ic-o"><svg class="ic"><use href="#i-pulse"/></svg></span>
-              <div class="ad-benefit-text">
+              <span class="promo-benefit-ic ic-o"><svg class="ic"><use href="#i-pulse"/></svg></span>
+              <div class="promo-benefit-text">
                 <strong>Docentes Expertos</strong>
                 <small>Profesionales en activo</small>
               </div>
@@ -1177,8 +1178,8 @@ body.playing #snd-global { display: none !important; }
           </ul>
         </div>
 
-        <div class="ad-bottom">
-          <a href="https://pyramid.edu.pe" target="_blank" rel="noopener noreferrer" class="ad-cta-btn btn-ad-teal">
+        <div class="promo-bottom">
+          <a href="https://pyramid.edu.pe" target="_blank" rel="noopener noreferrer" class="promo-cta-btn btn-promo-teal">
             <span>Conoce Pyramid Academy</span>
             <svg class="ic"><use href="#i-globe"/></svg>
           </a>
@@ -1220,34 +1221,34 @@ body.playing #snd-global { display: none !important; }
     </div>
 
     <!-- PANEL DERECHO: Mensajes Promocionales (22%) -->
-    <aside class="ad-panel ad-right" aria-label="Promociones y Cursos Especializados">
-      <div class="ad-corner tr"></div>
-      <div class="ad-corner bl"></div>
-      <div class="ad-card-inner">
-        <div class="ad-top">
-          <div class="ad-pill ad-pill-ora">
+    <aside class="promo-panel promo-right" aria-label="Promociones y Cursos Especializados">
+      <div class="promo-corner tr"></div>
+      <div class="promo-corner bl"></div>
+      <div class="promo-card-inner">
+        <div class="promo-top">
+          <div class="promo-pill promo-pill-ora">
             <svg class="ic"><use href="#i-moon"/></svg>
             <span>HALLOWEEN SPECIAL</span>
           </div>
 
-          <div class="ad-promo-header">
+          <div class="promo-promo-header">
             <div class="promo-badge-tag">PROGRAMAS DESTACADOS</div>
-            <h3 class="ad-promo-title">SOFTWARE LÍDER DE LA INDUSTRIA</h3>
-            <p class="ad-promo-desc">Especialízate en las herramientas de mayor demanda técnica del sector.</p>
+            <h3 class="promo-promo-title">SOFTWARE LÍDER DE LA INDUSTRIA</h3>
+            <p class="promo-promo-desc">Especialízate en las herramientas de mayor demanda técnica del sector.</p>
           </div>
         </div>
 
-        <div class="ad-body">
-          <div class="ad-tags-cloud">
-            <span class="ad-tag">Autodesk Revit</span>
-            <span class="ad-tag">Civil 3D</span>
-            <span class="ad-tag">RIB Presto</span>
-            <span class="ad-tag">GEO5 Perú</span>
-            <span class="ad-tag">CIP &amp; CAP</span>
-            <span class="ad-tag">CYPE Estructuras</span>
+        <div class="promo-body">
+          <div class="promo-tags-cloud">
+            <span class="promo-tag">Autodesk Revit</span>
+            <span class="promo-tag">Civil 3D</span>
+            <span class="promo-tag">RIB Presto</span>
+            <span class="promo-tag">GEO5 Perú</span>
+            <span class="promo-tag">CIP &amp; CAP</span>
+            <span class="promo-tag">CYPE Estructuras</span>
           </div>
 
-          <div class="ad-reward-teaser">
+          <div class="promo-reward-teaser">
             <div class="teaser-head">
               <svg class="ic"><use href="#i-award"/></svg>
               <span>¡BENEFICIO MÁXIMO!</span>
@@ -1257,8 +1258,8 @@ body.playing #snd-global { display: none !important; }
           </div>
         </div>
 
-        <div class="ad-bottom">
-          <a href="https://pyramid.edu.pe" target="_blank" rel="noopener noreferrer" class="ad-cta-btn btn-ad-ora">
+        <div class="promo-bottom">
+          <a href="https://pyramid.edu.pe" target="_blank" rel="noopener noreferrer" class="promo-cta-btn btn-promo-ora">
             <span>Ver Catálogo de Cursos</span>
             <svg class="ic"><use href="#i-globe"/></svg>
           </a>
@@ -1467,11 +1468,13 @@ function layout(){
   const hudH = hudEl ? (hudEl.offsetHeight || 52) : 52;
   const vGap = 14;
 
-  const maxLayoutW = Math.min(innerWidth, 1680);
-  const centerColW = isDesktop ? (maxLayoutW * 0.56) : innerWidth;
-  const availW = centerColW - padX * 2;
-  const maxAvailableH = isDesktop ? Math.min(innerHeight, 860) : innerHeight;
-  const availH = maxAvailableH - hudH - vGap - padY * 2 - 16;
+  // Measure the actual container, including outer padding and grid gutters.
+  const center = $('game-center');
+  const centerColW = center.clientWidth;
+  const maxAvailableH = center.clientHeight;
+  if (!centerColW || !maxAvailableH) return; // hidden screen; measured again in play()
+  const availW = Math.max(1, centerColW - padX * 2);
+  const availH = Math.max(1, maxAvailableH - hudH - vGap - padY * 2 - 16);
 
   let best = null;
   if (isDesktop) {
@@ -1488,7 +1491,7 @@ function layout(){
     }
 
     // Tarjetas generosas — se permite hasta 145 px de ancho
-    w = Math.min(145, Math.max(80, Math.floor(w)));
+    w = Math.min(145, Math.max(1, Math.floor(w)));
     h = Math.floor(w / CFG.ASPECT);
     best = { cols, w, h };
   } else {
